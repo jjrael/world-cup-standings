@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>FC COVINA World Cup 2026 Standings</title>
+<style>
+  body { font-family: sans-serif; max-width: 1100px; margin: 2em auto; }
+  table { border-collapse: collapse; width: 100%; }
+  .max-col { color: #555; font-style: italic; }
+  th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: center; }
+  th { background: #1a3c6e; color: white; cursor: pointer; user-select: none; }
+  th:hover { background: #254f94; }
+  th.sort-asc::after { content: ' ▲'; font-size: 0.75em; }
+  th.sort-desc::after { content: ' ▼'; font-size: 0.75em; }
+  tr:nth-child(even) { background: #f5f5f5; }
+  tr:hover { background: #e8f0ff; }
+  a { color: #1a3c6e; }
+</style>
+</head>
+<body>
+<h1>FC COVINA World Cup 2026 Standings</h1>
+<table id="standings">
+  <thead><tr>
+    <th onclick='sortTable(0)' title='Sort'>#</th>
+    <th onclick='sortTable(1)' title='Sort'>Participant</th>
+    <th onclick='sortTable(2)' title='Sort'>Round of 32</th><th onclick='sortTable(3)' title='Sort'>Round of 16</th><th onclick='sortTable(4)' title='Sort'>Quarter-final</th><th onclick='sortTable(5)' title='Sort'>Semi-final</th><th onclick='sortTable(6)' title='Sort'>Match for third place</th><th onclick='sortTable(7)' title='Sort'>Final</th>
+    <th onclick='sortTable(8)' title='Sort'>Total</th>
+    <th onclick='sortTable(9)' title='Sort' class='max-col'>Max</th>
+  </tr></thead>
+  <tbody><tr><td>1</td><td><a href='brackets/Cecilia.html'>Cecilia</a></td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>8</strong></td><td class='max-col'>83</td></tr><tr><td>2</td><td><a href='brackets/Daniel.html'>Daniel</a></td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>8</strong></td><td class='max-col'>83</td></tr><tr><td>3</td><td><a href='brackets/Maricela.html'>Maricela</a></td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>8</strong></td><td class='max-col'>83</td></tr><tr><td>4</td><td><a href='brackets/Tia_Maricela.html'>Tia_Maricela</a></td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>8</strong></td><td class='max-col'>81</td></tr><tr><td>5</td><td><a href='brackets/Elia.html'>Elia</a></td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>7</strong></td><td class='max-col'>80</td></tr><tr><td>6</td><td><a href='brackets/John.html'>John</a></td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>7</strong></td><td class='max-col'>82</td></tr><tr><td>7</td><td><a href='brackets/Juan.html'>Juan</a></td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>7</strong></td><td class='max-col'>82</td></tr><tr><td>8</td><td><a href='brackets/Lucas.html'>Lucas</a></td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>7</strong></td><td class='max-col'>82</td></tr><tr><td>9</td><td><a href='brackets/Elisa.html'>Elisa</a></td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>6</strong></td><td class='max-col'>79</td></tr><tr><td>10</td><td><a href='brackets/Jacob.html'>Jacob</a></td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>6</strong></td><td class='max-col'>79</td></tr><tr><td>11</td><td><a href='brackets/Mia.html'>Mia</a></td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>6</strong></td><td class='max-col'>79</td></tr><tr><td>12</td><td><a href='brackets/Sofia.html'>Sofia</a></td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>6</strong></td><td class='max-col'>81</td></tr><tr><td>13</td><td><a href='brackets/Gregorio.html'>Gregorio</a></td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>5</strong></td><td class='max-col'>78</td></tr></tbody>
+</table>
+<p style="font-size:0.8em;color:#888">Point values: Round of 32: 1, Round of 16: 2, Quarter-final: 4, Semi-final: 8, Match for third place: 4, Final: 16</p>
+<script>
+  let sortCol = -1, sortDir = 1;
+  function sortTable(col) {
+    const table = document.getElementById('standings');
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+    if (sortCol === col) { sortDir = -sortDir; } else { sortDir = -1; sortCol = col; }
+    rows.sort((a, b) => {
+      const av = a.cells[col].textContent.trim();
+      const bv = b.cells[col].textContent.trim();
+      const an = parseFloat(av), bn = parseFloat(bv);
+      if (!isNaN(an) && !isNaN(bn)) return (an - bn) * sortDir;
+      return av.localeCompare(bv) * sortDir;
+    });
+    rows.forEach(r => tbody.appendChild(r));
+    // update rank column
+    rows.forEach((r, i) => { if (col !== 0) r.cells[0].textContent = i + 1; });
+    // update header arrows
+    Array.from(table.tHead.rows[0].cells).forEach((th, i) => {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (i === col) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    });
+  }
+</script>
+</body></html>
